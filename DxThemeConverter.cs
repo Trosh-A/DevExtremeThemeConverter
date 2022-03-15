@@ -1,4 +1,4 @@
-﻿using ExCSS;
+using ExCSS;
 using System.Text;
 
 namespace dxThemeConverter;
@@ -7,30 +7,34 @@ public static class DxThemeConverter
 {
   public static string GetColorVariablesText(string cssContent)
   {
-    var colorClasses = new string[]
+    var colorClassesDictionary = new Dictionary<string, string>()
     {
-      ".dx-theme-accent-as-text-color",
-      ".dx-theme-text-color",
-      ".dx-theme-background-color-as-text-color",
-      ".dx-theme-border-color-as-text-color",
-      ".dx-theme-accent-as-background-color",
-      ".dx-theme-text-color-as-background-color",
-      ".dx-theme-background-color",
-      ".dx-theme-border-color-as-background-color",
-      ".dx-theme-accent-as-border-color",
-      ".dx-theme-text-color-as-border-color",
-      ".dx-theme-background-color-as-border-color",
-      ".dx-theme-border-color",
+      //Селектор, название переменной
+      { ".dx-theme-accent-as-text-color", "dx-theme-accent-as-text-color" },
+      { ".dx-theme-text-color", "dx-theme-text-color" },
+      { ".dx-theme-background-color-as-text-color", "dx-theme-background-color-as-text-color" },
+      { ".dx-theme-border-color-as-text-color", "dx-theme-border-color-as-text-color" },
+      { ".dx-theme-accent-as-background-color", "dx-theme-accent-as-background-color" },
+      { ".dx-theme-text-color-as-background-color", "dx-theme-text-color-as-background-color" },
+      { ".dx-theme-background-color", "dx-theme-background-color" },
+      { ".dx-theme-border-color-as-background-color", "dx-theme-border-color-as-background-color" },
+      { ".dx-theme-accent-as-border-color", "dx-theme-accent-as-border-color" },
+      { ".dx-theme-text-color-as-border-color", "dx-theme-text-color-as-border-color" },
+      { ".dx-theme-background-color-as-border-color", "dx-theme-background-color-as-border-color" },
+      { ".dx-theme-border-color", "dx-theme-border-color" },
+      { ".dx-button-mode-outlined.dx-button-success", "dx-button-success" },
+      { ".dx-button-mode-outlined.dx-button-default", "dx-button-default" },
+      { ".dx-button-mode-outlined.dx-button-danger", "dx-button-danger" },
+
     };
     var parser = new StylesheetParser();
     var stylesheet = parser.Parse(cssContent);
-    var themeColorRules = stylesheet.StyleRules.Where(sr => colorClasses.Contains(sr.SelectorText));
-    var result = new StringBuilder(750); //Я посмотерел, какой длины получается текст(713 символов)
+    var themeColorRules = stylesheet.StyleRules.Where(sr => colorClassesDictionary.ContainsKey(sr.SelectorText));
+    var result = new StringBuilder(1000);
     result.AppendLine(":root {");
     foreach (var themeColorRule in themeColorRules)
     {
-      //.dx-theme-accent-as-text-color -> accent-as-text-color
-      var cssVarName = themeColorRule.SelectorText.Trim('.');
+      var cssVarName = colorClassesDictionary[themeColorRule.SelectorText];
       //Беру значение цвета
       var varValue = themeColorRule.Style.Color;
       //Если значение цвета пустое, значит это класс для фонового цвета
