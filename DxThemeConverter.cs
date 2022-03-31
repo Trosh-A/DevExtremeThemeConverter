@@ -22,6 +22,7 @@ public static class DxThemeConverter
       { ".dx-theme-text-color-as-border-color", "dx-theme-text-color-as-border-color" },
       { ".dx-theme-background-color-as-border-color", "dx-theme-background-color-as-border-color" },
       { ".dx-theme-border-color", "dx-theme-border-color" },
+      { ".dx-list-group-header", "dx-list-group-header" },
       { ".dx-button-mode-outlined.dx-button-success", "dx-button-success" },
       { ".dx-button-mode-outlined.dx-button-default", "dx-button-default" },
       { ".dx-button-mode-outlined.dx-button-danger", "dx-button-danger" },
