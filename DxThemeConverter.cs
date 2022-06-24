@@ -26,6 +26,7 @@ public static class DxThemeConverter
       { ".dx-button-mode-outlined.dx-button-success", "dx-button-success" },
       { ".dx-button-mode-outlined.dx-button-default", "dx-button-default" },
       { ".dx-button-mode-outlined.dx-button-danger", "dx-button-danger" },
+      { ".dx-toast-warning", "dx-toast-warning" },
 
     };
     var parser = new StylesheetParser();
